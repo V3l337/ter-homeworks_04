@@ -31,27 +31,50 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-###common vars
+###ссш ключ file
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = "your_ssh_ed25519_key"
+  default     = "/root/ter-homeworks/04/src/sskey.pub"
   description = "ssh-keygen -t ed25519"
 }
 
-###example vm_web var
-variable "vm_web_name" {
-  type        = string
-  default     = "netology-develop-platform-web"
-  description = "example vm_web_ prefix"
+###передача ключа в функцию ${ssh_key} in cloud-init
+
+data "template_file" "cloudinit" {
+  template = file("/root/ter-homeworks/04/src/cloud-init.yml")
+
+  vars = {
+    ssh_key = file(var.vms_ssh_root_key)
+  }
 }
 
-###example vm_db var
-variable "vm_db_name" {
+###именя тачек
+
+variable "vm_marketing" {
   type        = string
-  default     = "netology-develop-platform-db"
-  description = "example vm_db_ prefix"
+  default     = "netology-"
 }
 
+variable "vm_analytics" {
+  type        = string
+  default     = "netology-"
+}
 
+###образ тачки
 
+data "yandex_compute_image" "deb" {
+  family = "debian-11"
+}
+
+###переменные для окружения тачек
+
+variable "env_name_a" {
+  type        = string
+  default     = "vm-analytic"
+}
+
+variable "env_name_m" {
+  type        = string
+  default     = "vm-marketing"
+}
