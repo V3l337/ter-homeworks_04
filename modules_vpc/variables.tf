@@ -3,12 +3,15 @@ variable "network_name" {
   type        = string
 }
 
-variable "zone" {
-  description = "The availability zone for the subnet"
+variable "vpc_name" {
+  description = "VPC network and subnet name"
   type        = string
 }
 
-variable "v4_cidr_blocks" {
-  description = "CIDR block for the subnet"
-  type        = string
+variable "subnets" {
+  description = "Список подсетей с указанием зоны и CIDR"
+  type = list(object({
+    zone = string
+    cidr = string
+  }))
 }

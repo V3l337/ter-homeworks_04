@@ -26,9 +26,8 @@ variable "default_cidr" {
 }
 
 variable "vpc_name" {
+  description = "VPC network and subnet name"
   type        = string
-  default     = "develop"
-  description = "VPC network&subnet name"
 }
 
 ###ссш ключ file

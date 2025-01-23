@@ -14,6 +14,6 @@ output "vm_analytics_fqdn" {
   value = module.vm_analytics.fqdn
 }
 
-output "subnet_name" {
-  value = module.vpc_dev.subnet_name
+output "subnets_info" {
+  value = module.vpc_dev.subnets_info
 }
